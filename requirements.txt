@@ -1,0 +1,9 @@
+# Core scientific libraries
+numpy
+pandas
+scikit-learn
+scikit-surprise
+matplotlib
+seaborn
+scipy
+sklearn-pandas
