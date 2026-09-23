@@ -85,25 +85,8 @@ jobs:
     needs: [model-training, data-prep, register-dataset]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install Dependencies
+
+      - name: Trigger Streamlit Cloud Sync
         run: |
-          python3 -m pip install --upgrade pip
-          pip3 install -r tourism_project/deployment/requirements.txt
-          pip3 install huggingface_hub
-      - name: Push files to Frontend Hugging Face Space
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: |
-          python3 -m huggingface_hub repo create tourism-package-prediction --type space --space_sdk streamlit || true
-          cp -r tourism_project/deployment/* tourism-package-prediction/
-          cd tourism-package-prediction/
-          git init
-          git remote add origin https://huggingface.co/spaces/bmitto/tourism-package-prediction
-          git config user.name "Github Actions Bot"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Update Streamlit app"
-          git push --force origin main
+          echo "Deployment files are safely updated on GitHub."
+          echo "Streamlit Community Cloud will automatically sync and redeploy the app from visitusapp branch"
